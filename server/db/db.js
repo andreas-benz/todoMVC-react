@@ -29,6 +29,7 @@ function updateTaskDB (taskToUpdate, database = conn) {
 }
 
 function addTaskDB (obj, database = conn) {
+  console.log(obj)
   return database('tasks')
     .insert(obj)
 }

@@ -12,10 +12,12 @@ function taskReducer (state = initialTaskState, action) {
       return action.tasks
 
     case ADD_TASK:
-      const allIds = state.map(task => task.t_id)
-      const maxId = Math.max(...allIds)
-      return [ ...state, { t_id: maxId + 1, name: action.newTask } ]
-      // return [ ...state, action.newTask]
+      return [ ...state, action.newTask]
+
+      // const allIds = state.map(task => task.t_id)
+      // const maxId = Math.max(...allIds)
+       
+      // return [ ...state, { t_id: maxId + 1, name: action.newTask } ]
 
     case UPDATE_TASK:
       state.forEach(task => {

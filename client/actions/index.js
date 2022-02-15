@@ -1,4 +1,4 @@
-import { getAllTasksFromDB } from '../api'
+import { getAllTasksFromDB, addTaskToDB } from '../api'
 
 // VARIABLES
 
@@ -57,9 +57,10 @@ export function getAllTasksThunk () {
 export function addATaskToDB(newTask) {
   return (dispatch) => {
     // dispatch(disableButton())
-    addTaskDB(newTask)
-      .then((taskFromDb) => {
-        dispatch(addTaskDB(taskFromDb))
+    console.log(newTask)
+    addTaskToDB(newTask)
+      .then((tasksFromDb) => {
+        dispatch(addTaskGS(tasksFromDb))
         // dispatch(reenableButton())
       })
     }

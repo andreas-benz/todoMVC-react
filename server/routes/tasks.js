@@ -20,9 +20,9 @@ router.post('/', (req, res) => {
   db.addTaskDB(taskToAdd)
     .then(idArr => {
       const newId = idArr[0]
-      db.getTask(newId)
-      .then(addedTask => {
-        res.json(addedTask)
+      db.getAllTasksDB()
+      .then(tasks => {
+        res.json(tasks)
         return null
       })
     })
