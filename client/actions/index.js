@@ -1,4 +1,4 @@
-// import { fetchAllTasks } from '../api'
+import { getAllTasksFromDB } from '../api'
 
 // VARIABLES
 
@@ -9,21 +9,21 @@ export const DEL_TASK = 'DEL_TASK'
 
 // ACTION CREATORS
 
-export function saveAllTasks(taskArr) {
+export function saveAllTasksGS(taskArr) {
   return {
     type: SAVE_ALL_TASKS,
     tasks: taskArr
   }
 }
 
-export function addTask(newTask) {
+export function addTaskGS(newTask) {
   return {
     type: ADD_TASK,
     newTask
   }
 }
 
-export function updateTask(t_id, updatedTask) {
+export function updateTaskGS(t_id, updatedTask) {
   return {
     type: UPDATE_TASK,
     t_id,
@@ -31,7 +31,7 @@ export function updateTask(t_id, updatedTask) {
   }
 }
 
-export function delFruit(t_id) {
+export function delTaskGS(t_id) {
   return {
     type: DEL_TASK,
     t_id: t_id
@@ -40,37 +40,49 @@ export function delFruit(t_id) {
 
 // THUNKS
 
-// export function myThunk () {
-//   return (dispatch) => {
-//     // access to dispatch
-//     console.log(dispatch)
+export function getAllTasksThunk () {
+  return (dispatch) => {
+    // loading / pending
+    // dispatch(loading())
 
-//     // some async stuff / api call
-//     // then dispatch
-//   }
-// }
+    getAllTasksFromDB() // async
+      .then(tasks => {
+        // the info
+        dispatch(saveAllTasksGS(tasks))
+        // dispatch(notLoading())
+      })
+  }
+}
 
-// export function getAllTheFruit () {
-//   return (dispatch) => {
-//     // loading / pending
-//     dispatch(loading())
+export function addATaskToDB(newTask) {
+  return (dispatch) => {
+    // dispatch(disableButton())
+    addTaskDB(newTask)
+      .then((taskFromDb) => {
+        dispatch(addTaskDB(taskFromDb))
+        // dispatch(reenableButton())
+      })
+    }
+}
 
-//     fetchAllFruits() // async
-//       .then(fruits => {
-//         // the info
-//         dispatch(saveAllFruit(fruits))
-//         // dispatch(notLoading())
-//       })
-//   }
-// }
+export function deleteTaskDB(t_id) {
+  return (dispatch) => {
+    // dispatch(disableButton())
+    deleteTaskDB(t_id)
+      .then((t_id) => {
+        dispatch(delTaskGS(t_id))
+        // dispatch(reenableButton())
+      })
+    }
+}
 
-// export function addAFruit (newfruit) {
-//   return (dispatch) => {
-//     dispatch(disableButton())
-//     saveAFruitAPI(newfruit)
-//       .then((fruitFromDb) => {
-//         dispatch(saveFruit(fruitFromDb))
-//         dispatch(reenableButton())
-//       })
-//   }
-// }
+export function updateTaskDB(taskToUpdate) {
+  return (dispatch) => {
+    // dispatch(disableButton())
+    updateTaskDB(taskToUpdate)
+      .then((updatedTask) => {
+        dispatch(updateTaskGS(updatedTask))
+        // dispatch(reenableButton())
+      })
+    }
+}

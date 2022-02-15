@@ -2,38 +2,38 @@ const knex = require('knex')
 const config = require('./knexfile').development
 const conn = knex(config)
 
-function getAllTasks (database = conn) {
+function getAllTasksDB (database = conn) {
     return database('tasks')
       .select()
       .leftJoin('users', 'created_by', 'users.u_id')
   }
 
-function getTask(id, database = conn) {
+function getTaskDB (id, database = conn) {
   return database('tasks')
     .select()
     .where('t_id', id) //returns all entries where ids match
     .first() //returns only one entry
 }
 
-function deleteTask (id, database = conn) {
+function deleteTaskDB (id, database = conn) {
   return database('tasks')
     .where('t_id', id)
     .del()
 }
 
-function updateTask (taskToUpdate, database = conn) {
+function updateTaskDB (taskToUpdate, database = conn) {
   const t_id = taskToUpdate.t_id
   return database('tasks')
     .where('t_id', t_id)
     .update(taskToUpdate)
 }
 
-function addTask (obj, database = conn) {
+function addTaskDB (obj, database = conn) {
   return database('tasks')
     .insert(obj)
 }
 
-function getAllUsers (database = conn) {
+function getAllUsersDB (database = conn) {
   return database('users')
     .select()
 }
@@ -55,12 +55,12 @@ function getAllUsers (database = conn) {
 // }
 
 module.exports = {
- getAllTasks,
- getTask,
- deleteTask,
- updateTask,
- addTask,
- getAllUsers,
+ getAllTasksDB,
+ getTaskDB,
+ deleteTaskDB,
+ updateTaskDB,
+ addTaskDB,
+ getAllUsersDB,
  
 //  getAllTasksThatAreNotMine,
 //  tasksIhaveCreated,

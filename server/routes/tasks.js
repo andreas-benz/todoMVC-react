@@ -5,7 +5,7 @@ const router = express.Router()
 const db = require('../db/db')
 
 router.get('/', (req, res) => {
-  db.getAllTasks()
+  db.getAllTasksDB()
     .then(tasks => {
       res.json(tasks)
       return null
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const taskToAdd = req.body
-  db.addTask(taskToAdd)
+  db.addTaskDB(taskToAdd)
     .then(idArr => {
       const newId = idArr[0]
       db.getTask(newId)
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
 
 router.patch('/', (req, res) => {
   const taskToUpdate = req.body
-  db.updateTask(taskToUpdate)
+  db.updateTaskDB(taskToUpdate)
     .then(numberOfupdatedTasks => {
       db.getTask(taskToUpdate.t_id)
         .then(updatedTask => {
@@ -48,7 +48,7 @@ router.patch('/', (req, res) => {
 
 router.delete('/', (req, res) => {
   const t_id = (req.body.t_id)
-  db.deleteTask(t_id)
+  db.deleteTaskDB(t_id)
     .then (numberOfDeletedItem => {
       res.json("task deleted")
     })
