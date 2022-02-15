@@ -18,14 +18,11 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const taskToAdd = req.body
   db.addTaskDB(taskToAdd)
-    .then(idArr => {
-      const newId = idArr[0]
-      db.getAllTasksDB()
-      .then(tasks => {
-        res.json(tasks)
+    .then(idOfaddedTask => {
+      res.json(idOfaddedTask)
         return null
       })
-    })
+    
     .catch(err => {
       res.status(500).send(err.message)
     })

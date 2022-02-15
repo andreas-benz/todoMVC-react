@@ -57,10 +57,11 @@ export function getAllTasksThunk () {
 export function addATaskToDB(newTask) {
   return (dispatch) => {
     // dispatch(disableButton())
-    console.log(newTask)
     addTaskToDB(newTask)
-      .then((tasksFromDb) => {
-        dispatch(addTaskGS(tasksFromDb))
+      .then((idOfaddedTask) => {
+        // const newTaskInclID = {t_id: idOfaddedTask[0], title: newTask.title}
+        const newTaskInclID = {...newTask, t_id: idOfaddedTask[0]}
+        dispatch(addTaskGS(newTaskInclID))
         // dispatch(reenableButton())
       })
     }

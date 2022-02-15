@@ -10,7 +10,6 @@ export function getAllTasksFromDB () {
 }
 
 export function addTaskToDB (newTask) {
-console.log(newTask)
   return request
   .post(taskRouteURL)
   .send(newTask)

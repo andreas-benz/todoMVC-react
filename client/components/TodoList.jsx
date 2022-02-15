@@ -17,7 +17,7 @@ function TodoList () {
             {/* List items should get the class `editing` when editing and `completed` when marked as completed */}
           
           {tasks.map((Task) =>           
-            <li>
+            <li className="in_progress">
               <div className="view">
                 <input className="toggle" type="checkbox" checked />
                 <label>{Task.title}</label>
