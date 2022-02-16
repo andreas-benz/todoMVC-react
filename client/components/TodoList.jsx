@@ -16,7 +16,7 @@ function TodoList () {
         
         <ul className="todo-list">
             
-          {tasks.map(task => <Task />)}
+          {tasks.map(task => <Task props={task}/>)}
 
         </ul>
       </section>
