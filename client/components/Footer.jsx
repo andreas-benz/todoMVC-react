@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Footer (props) {
+
   return (
     <>
       {/* This footer should hidden by default and shown when there are todos */}
