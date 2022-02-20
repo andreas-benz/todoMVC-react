@@ -6,7 +6,7 @@ import Task from './Task'
 function TodoList () {
   
   const tasks = useSelector(globalState => globalState.taskReducer)
-
+  
   return (
     <>
       {/* This section should be hidden by default and shown when there are todos */}

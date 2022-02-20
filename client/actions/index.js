@@ -1,4 +1,4 @@
-import { getAllTasksFromDB, addTaskToDB } from '../api'
+import { getAllTasksFromDB, addTaskToDB, updateTaskInDB } from '../apis/tasks'
 
 // VARIABLES
 
@@ -23,11 +23,11 @@ export function addTaskGS(newTask) {
   }
 }
 
-export function updateTaskGS(t_id, updatedTask) {
+export function updateTaskGS(updatedTask) {
+  console.log("from Action/Reducer", updatedTask)
   return {
     type: UPDATE_TASK,
-    t_id,
-    updatedTask: updatedTask
+    updatedTask
   }
 }
 
@@ -56,35 +56,31 @@ export function getAllTasksThunk () {
 
 export function addATaskToDB(newTask) {
   return (dispatch) => {
-    // dispatch(disableButton())
     addTaskToDB(newTask)
       .then((idOfaddedTask) => {
-        // const newTaskInclID = {t_id: idOfaddedTask[0], title: newTask.title}
         const newTaskInclID = {...newTask, t_id: idOfaddedTask[0]}
         dispatch(addTaskGS(newTaskInclID))
-        // dispatch(reenableButton())
       })
     }
 }
 
-export function deleteTaskDB(t_id) {
+export function updateATaskInDB(taskToUpdate) {
   return (dispatch) => {
-    // dispatch(disableButton())
-    deleteTaskDB(t_id)
-      .then((t_id) => {
-        dispatch(delTaskGS(t_id))
-        // dispatch(reenableButton())
+    updateTaskInDB(taskToUpdate)
+      .then((number_of_updated_tasks) => {
+        dispatch(updateTaskGS(taskToUpdate))
       })
-    }
+  }
 }
 
-export function updateTaskDB(taskToUpdate) {
-  return (dispatch) => {
-    // dispatch(disableButton())
-    updateTaskDB(taskToUpdate)
-      .then((updatedTask) => {
-        dispatch(updateTaskGS(updatedTask))
-        // dispatch(reenableButton())
-      })
-    }
-}
+
+// export function deleteTaskDB(t_id) {
+//   return (dispatch) => {
+//     // dispatch(disableButton())
+//     deleteTaskDB(t_id)
+//       .then((t_id) => {
+//         dispatch(delTaskGS(t_id))
+//         // dispatch(reenableButton())
+//       })
+//     }
+// }

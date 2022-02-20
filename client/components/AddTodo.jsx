@@ -10,7 +10,8 @@ function AddTodo () {
     e.preventDefault()
 
     const newTask = {
-      title: newTaskTitle
+      title: newTaskTitle,
+      status: "in progress"
     }
 
     dispatch(addATaskToDB(newTask))
@@ -21,6 +22,7 @@ function AddTodo () {
     <>
       <header className="header">
         <h1>My Mahi List</h1>
+        <form type="submit" onSubmit={handleSubmit}>
         <input 
           className="new-todo" 
           type='text' 
@@ -29,8 +31,9 @@ function AddTodo () {
           placeholder="What needs to be done?" 
           autoFocus={true} 
           onChange={e => setNewTaskTitle(e.target.value) }
-          onBlur={handleSubmit}
          />
+         </form>
+
       </header>
     </>
   )

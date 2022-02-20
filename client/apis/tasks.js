@@ -2,7 +2,6 @@ import request from 'superagent'
 
 const taskRouteURL = '/api/v1/tasks/'
 
-
 export function getAllTasksFromDB () {
   return request
     .get(taskRouteURL)
@@ -13,5 +12,12 @@ export function addTaskToDB (newTask) {
   return request
   .post(taskRouteURL)
   .send(newTask)
+  .then(res => res.body)
+}
+
+export function updateTaskInDB (taskToUpdate) {
+  return request
+  .patch(taskRouteURL)
+  .send(taskToUpdate)
   .then(res => res.body)
 }

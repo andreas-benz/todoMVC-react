@@ -1,11 +1,9 @@
 import { SAVE_ALL_TASKS, ADD_TASK, UPDATE_TASK, DEL_TASK } from '../actions'
 
-
 const initialTaskState = []
 
-
 function taskReducer (state = initialTaskState, action) {
-  
+  console.log("state from reducer", state)
   switch (action.type) {
 
     case SAVE_ALL_TASKS:
@@ -20,13 +18,8 @@ function taskReducer (state = initialTaskState, action) {
       // return [ ...state, { t_id: maxId + 1, name: action.newTask } ]
 
     case UPDATE_TASK:
-      state.forEach(task => {
-        if (task.id === action.id) {
-          task.name = action.newTask
-        }
-      })
-      return [...state]
-
+      return state.map(task => task.t_id === Number(action.updatedTask.t_id) ? action.updatedTask : task)
+      
     case DEL_TASK:
       return state.filter(task => task.id !== action.taskId)
 

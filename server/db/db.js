@@ -5,7 +5,7 @@ const conn = knex(config)
 function getAllTasksDB (database = conn) {
     return database('tasks')
       .select()
-      .leftJoin('users', 'created_by', 'users.u_id')
+      //.leftJoin('users', 'created_by', 'users.u_id')
   }
 
 function getTaskDB (id, database = conn) {

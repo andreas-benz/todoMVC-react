@@ -1,25 +1,23 @@
 import React, {useState} from 'react'; 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {updateATaskInDB} from '../actions'
 
 
 function Task (props) {
-  //could I identify .this record via target.value or something and not via props?
-  const task = props.props
-  const t_id = task.t_id
+  const taskProp = props.props
+  const taskGS = useSelector(globalState => globalState.taskReducer.find(task => task.t_id === Number(taskProp.t_id)))
+  const dispatch = useDispatch()
 
-  const [checked, setChecked] = useState(false);
-  const handleChange = () => { 
-    
-  setChecked(!checked);
-  //write to DB onChange --> updateDB. If checked = true then wirte 'completed' else write 'created'
-}; 
+  const handleChange = (e) => {
+  taskGS.status === "completed" ? dispatch(updateATaskInDB({...taskGS, status: "in progress"})) : dispatch(updateATaskInDB({...taskGS, status: "completed"}))
+  };
 
 return (
     <>
-      <li className={checked ? 'completed' : 'in progress'}>
+      <li className={(taskGS.status === "completed") ? 'completed' : 'in progress'}>
         <div className="view">
-          <input className="toggle" type="checkbox" checked={checked ? true : false} onChange={handleChange}/>
-          <label>{task.title}</label>
+          <input className="toggle" type="checkbox" checked={(taskGS.status === "completed") ? true : false} onChange={handleChange}/>
+          <label>{taskProp.title}</label>
           <button className="destroy"></button>
         </div>
         <input className="edit" value="Create a TodoMVC template" />
@@ -29,22 +27,3 @@ return (
 }
 
 export default Task
-
-
-/*
-These are here just to show the structure of the list items
-List items should get the class `editing` when editing and `completed` when marked as completed
-
-checked={checked ? 'Checked' : 'Not checked'}
-
-  {/*<Fruit key={oneFruit.id} fruit={oneFruit} />)}
-  <li className="completed">
-  <div className="view">
-  <input className="toggle" type="checkbox" />
-  <label>Buy a unicorn</label>
-  <button className="destroy"></button>
-  </div>
-  <input className="edit" value="Rule the web" />
-  </li>
-
-  */
