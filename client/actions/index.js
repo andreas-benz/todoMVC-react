@@ -1,4 +1,4 @@
-import { getAllTasksFromDB, addTaskToDB, updateTaskInDB } from '../apis/tasks'
+import { getAllTasksFromDB, addTaskToDB, updateTaskInDB, deleteTaskInDB } from '../apis/tasks'
 
 // VARIABLES
 
@@ -24,7 +24,6 @@ export function addTaskGS(newTask) {
 }
 
 export function updateTaskGS(updatedTask) {
-  console.log("from Action/Reducer", updatedTask)
   return {
     type: UPDATE_TASK,
     updatedTask
@@ -34,7 +33,7 @@ export function updateTaskGS(updatedTask) {
 export function delTaskGS(t_id) {
   return {
     type: DEL_TASK,
-    t_id: t_id
+    t_id
   }
 }
 
@@ -73,14 +72,14 @@ export function updateATaskInDB(taskToUpdate) {
   }
 }
 
-
-// export function deleteTaskDB(t_id) {
-//   return (dispatch) => {
-//     // dispatch(disableButton())
-//     deleteTaskDB(t_id)
-//       .then((t_id) => {
-//         dispatch(delTaskGS(t_id))
-//         // dispatch(reenableButton())
-//       })
-//     }
-// }
+export function deleteATaskInDB(t_id) {
+  console.log(t_id)
+  return (dispatch) => {
+    // dispatch(disableButton())
+    deleteTaskInDB(t_id)
+      .then((something) => {
+        dispatch(delTaskGS(t_id))
+        // dispatch(reenableButton())
+      })
+    }
+}

@@ -42,13 +42,15 @@ router.patch('/', (req, res) => {
   })
 
 router.delete('/', (req, res) => {
-  const t_id = (req.body.t_id)
+  const t_id = (req.body)
+  console.log("router here", t_id)
+
   db.deleteTaskDB(t_id)
     .then (numberOfDeletedItem => {
       res.json("task deleted")
     })
      .catch(err => {
-      res.status(500).send(err.message)
+     res.status(500).send(err.message)
     })
 })
 

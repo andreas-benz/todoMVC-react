@@ -15,10 +15,9 @@ function getTaskDB (id, database = conn) {
     .first() //returns only one entry
 }
 
-function deleteTaskDB (id, database = conn) {
+function addTaskDB (obj, database = conn) {
   return database('tasks')
-    .where('t_id', id)
-    .del()
+    .insert(obj)
 }
 
 function updateTaskDB (taskToUpdate, database = conn) {
@@ -28,9 +27,10 @@ function updateTaskDB (taskToUpdate, database = conn) {
     .update(taskToUpdate)
 }
 
-function addTaskDB (obj, database = conn) {
+function deleteTaskDB (t_id, database = conn) {
   return database('tasks')
-    .insert(obj)
+    .where('t_id', t_id.t_id)
+    .del()
 }
 
 function getAllUsersDB (database = conn) {

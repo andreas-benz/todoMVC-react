@@ -15,7 +15,7 @@ function AddTodo () {
     }
 
     dispatch(addATaskToDB(newTask))
-    setNewTaskTitle('What needs to be done?')
+    setNewTaskTitle('')
   }
 
   return (

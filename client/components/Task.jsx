@@ -1,7 +1,6 @@
 import React, {useState} from 'react'; 
 import { useSelector, useDispatch } from 'react-redux'
-import {updateATaskInDB} from '../actions'
-
+import {updateATaskInDB, deleteATaskInDB} from '../actions'
 
 function Task (props) {
   const taskProp = props.props
@@ -12,15 +11,20 @@ function Task (props) {
   taskGS.status === "completed" ? dispatch(updateATaskInDB({...taskGS, status: "in progress"})) : dispatch(updateATaskInDB({...taskGS, status: "completed"}))
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault()
+    dispatch(deleteATaskInDB(taskProp.t_id))
+  }
+
 return (
     <>
       <li className={(taskGS.status === "completed") ? 'completed' : 'in progress'}>
         <div className="view">
           <input className="toggle" type="checkbox" checked={(taskGS.status === "completed") ? true : false} onChange={handleChange}/>
           <label>{taskProp.title}</label>
-          <button className="destroy"></button>
+          <button className="destroy" onClick={handleDelete}></button>
         </div>
-        <input className="edit" value="Create a TodoMVC template" />
+        <input className="edit" readOnly="Create a TodoMVC template"  />
       </li>
     </>
   )
