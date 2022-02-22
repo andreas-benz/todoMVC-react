@@ -1,6 +1,9 @@
 import React, {useState} from 'react'; 
 import { useSelector, useDispatch } from 'react-redux'
 import {updateATaskInDB, deleteATaskInDB} from '../actions'
+import TodoList from './Task'
+
+
 
 function Task (props) {
   const taskProp = props.props
@@ -13,7 +16,7 @@ function Task (props) {
 
   const handleToggle = (e) => {
   taskGS.status === "completed" ? dispatch(updateATaskInDB({...taskGS, status: "in progress"})) : dispatch(updateATaskInDB({...taskGS, status: "completed"}))
-  };
+};
 
   const handleDelete = (e) => {
     e.preventDefault()
