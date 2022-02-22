@@ -7,12 +7,11 @@ function Task (props) {
   const taskGS = useSelector(globalState => globalState.taskReducer.find(task => task.t_id === Number(taskProp.t_id)))
   const dispatch = useDispatch()
 
-  //Inline editing:
   const [isEditing, setEditing] = useState(false);
   const [TaskTitle, setTaskTitle] = useState(taskProp.title)
 
 
-  const handleChange = (e) => {
+  const handleToggle = (e) => {
   taskGS.status === "completed" ? dispatch(updateATaskInDB({...taskGS, status: "in progress"})) : dispatch(updateATaskInDB({...taskGS, status: "completed"}))
   };
 
@@ -21,10 +20,12 @@ function Task (props) {
     dispatch(deleteATaskInDB(taskProp.t_id))
   }
 
-  const handleKeyDownTaskTitle = (e) => {
-    setTaskTitle(e.target.value)
+  const handleInput = (e) => {
     if (e.key === 'Enter') {
       handleUpdate()}
+      else {
+        setTaskTitle(e.target.value)
+      }
   };
 
 const handleUpdate = (e) => {
@@ -36,13 +37,15 @@ return (
     <>
       <li className={(taskGS.status === "completed") ? 'completed' : ""}>
         <div className="view">
-          <input className="toggle" type="checkbox" checked={(taskGS.status === "completed") ? true : false} onChange={handleChange}/>
-
+          <input 
+            className="toggle" 
+            type="checkbox" checked={(taskGS.status === "completed") ? true : false} 
+            onChange={handleToggle}
+          />
           <label>
             {isEditing ? (
               <div
-                onKeyDown={e => handleKeyDownTaskTitle(e)}
-                
+                onKeyDown={e => handleInput(e)}
               >
                 <input
                   type="text"
@@ -52,7 +55,6 @@ return (
                   value={TaskTitle}
                   onChange={e => setTaskTitle(e.target.value)}
                 />
-
               </div>
             ) : (
               <div
@@ -61,8 +63,7 @@ return (
                 {TaskTitle}
               </div>
             )}
-          </label>
-              
+          </label>   
           <button className="destroy" onClick={handleDelete}></button>
         </div>
         <input className="edit" readOnly="Create a TodoMVC template"  />
