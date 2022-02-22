@@ -31,6 +31,7 @@ const handleUpdate = (e) => {
   setEditing(false)
   dispatch(updateATaskInDB({...taskGS, title: TaskTitle}))
 }
+
 return (
     <>
       <li className={(taskGS.status === "completed") ? 'completed' : ""}>
