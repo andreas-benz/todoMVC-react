@@ -23,6 +23,8 @@ function Task (props) {
 
   const handleKeyDownTaskTitle = (e) => {
     setTaskTitle(e.target.value)
+    if (e.key === 'Enter') {
+      handleUpdate()}
   };
 
 const handleUpdate = (e) => {
@@ -38,7 +40,6 @@ return (
           <label>
             {isEditing ? (
               <div
-                onBlur={() => handleUpdate()}
                 onKeyDown={e => handleKeyDownTaskTitle(e)}
                 
               >
